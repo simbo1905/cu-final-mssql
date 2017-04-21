@@ -1,0 +1,5 @@
+.vscode/
+.bowerrc
+bin/
+obj/
+out/
