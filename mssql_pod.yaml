@@ -1,0 +1,33 @@
+# https://docs.openshift.com/container-platform/3.4/architecture/core_concepts/pods_and_services.html
+# TODO the secret shouldn't be harcoded but snarfed from a secret. unfortunately the container deployment aborts without it so hardcoded it here so make it a template to be instantiated using "oc template"???
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  name: "mssql"
+  labels:
+    name: "mssql"
+spec:
+  containers:
+    -
+      name: "mssql-server-linux"
+      image: "microsoft/mssql-server-linux"
+      ports:
+        -
+          containerPort: 1433
+          name: "mssql-server"
+      env:
+        - name: ACCEPT_EULA
+          value: >-
+                Y
+        - name: SA_PASSWORD
+          value: >-
+                <YourStrong!Passw0rd>
+      volumeMounts:
+        -
+          mountPath: "/var/opt/mssql"
+          name: "pvol"
+  volumes:
+    -
+      name: "pvol"
+      persistentVolumeClaim:
+        claimName: "claim1"
