@@ -1,4 +1,7 @@
-﻿USE mydatabase
+CREATE database mydatabase;
+GO
+USE mydatabase;
+GO
 
 CREATE TABLE [dbo].[Person] (
     [ID]             INT            IDENTITY (1, 1) NOT NULL,
@@ -81,5 +84,3 @@ CREATE TABLE [dbo].[OfficeAssignment] (
     CONSTRAINT [PK_OfficeAssignment] PRIMARY KEY CLUSTERED ([InstructorID] ASC),
     CONSTRAINT [FK_OfficeAssignment_Instructor_InstructorID] FOREIGN KEY ([InstructorID]) REFERENCES [dbo].[Person] ([ID]) ON DELETE CASCADE
 );
-
-
