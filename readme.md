@@ -1,10 +1,12 @@
-# Contoso University ASP.NET Core and Entity Framework Core with SQLServer on Docker (Linux/Mac)
+# "Contoso University" ASP.NET Core and Entity Framework Core with SQLServer on Docker (Linux/Mac)
 
-Contoso University demonstrates how to use Entity Framework Core in an
+"Contoso University" demonstrates how to use Entity Framework Core in an
 ASP.NET Core MVC web application. This repository makes minor patches to be
 able to configure the connection settings via Environment Variables. It also
 provides some yaml file to deploy the demo app and SQLServer Linux on Docker
-to run on Mac OS (Mac OSX).
+to run on Mac OS (Mac OSX). 
+
+The code isn't aiming for production quality. By way of example the logging of SQL strings happens in production builds. In a real application you would use the DotNet core convensions of checking a standard Env Var to enable or disable it. STill those modifications are easy to make send me a PR. 
 
 ## Run It with Docker on Mac OS
 
