@@ -97,7 +97,7 @@ Now run the machine. Once again I had to use the specific versions shown:
 
 If you run ```docker ps``` you should see a load of Openshift containers running.
 
-I the following if I created a project on the command-line I got access denied trying to access it on the web console logged in a the system users. If you run into that issue run `oc delete project cu-final-mssql` and recreated it via the web console.
+In the following if I created a project on the command-line I got access denied trying to access it on the web console logged in a the system users. If you run into that issue run `oc delete project cu-final-mssql` and recreated it via the web console.
 
 Now deploy SQLSerer into Openshift (OMG!):
 
@@ -153,4 +153,5 @@ Then deploy the app via the web console:
 11. On the Overview click on "Create Route" for the CU FINAL MSSQL service. Just hit Create.
 12. The overview should show a http link to an xip.io url which opens a browser pointing at your apps IP address.
 13. Navigate to the Student tab and click Create New to confirm you can write to the dataase.
-14. Enjoy!
+
+Enjoy!
