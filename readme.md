@@ -8,16 +8,18 @@ The code isn't aiming for production quality. By way of example the logging of S
 
 ## Run It with Docker on Mac OS
 
-_Personal Opinion:_ I recommend using with "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
+_Personal Opinion:_ I recommend using  "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
 
 SQLServer wont get out of bed for less than 3.5G RAM so you need to up your memory settings on Docker for Mac and restart it. Then start up SQLServer on under docker with:
 
-```docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 -d microsoft/mssql-server-linux
+```
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 -d microsoft/mssql-server-linux
 ```
 
 Now we need to create the database and tables with `SqlServer.sql`:
 
-```# replace d961b29f54df with your container uid shown using "docker ps"
+```
+# replace d961b29f54df with your container uid shown using "docker ps"
 docker cp SqlServer.sql d961b29f54df:/var/opt/mssql/data/SqlServer.sql
 # login
 docker exec -it d961b29f54df bash
@@ -62,7 +64,8 @@ docker build -t cu-final-mssql .
 
 If you have private containers you are going to have to "docker push" into the docker repo it brings up. With opensource code is far easier to deploy via docker hub:
 
-```# in the following commands you need to use your docker user name
+```
+# in the following commands you need to use your docker user name
 docker login
 docker tag cu-final-mssql username/cu-final-mssql:latest
 docker push username/cu-final-mssql:latest
@@ -98,7 +101,8 @@ I the following if I created a project on the command-line I got access denied t
 
 Now deploy SQLSerer into Openshift (OMG!):
 
-```# login to Openshift
+```
+# login to Openshift
 oc login -u system:admin
 # see warning above about perhaps not being able to login to this project
 oc new-project cu-final-mssql
