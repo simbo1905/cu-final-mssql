@@ -62,10 +62,10 @@ dotnet publish -c Release -o out
 docker build -t cu-final-mssql .
 ```
 
-If you have private containers you are going to have to "docker push" into the docker repo it brings up. With opensource code is far easier to deploy via docker hub:
+If you have private containers you are going to have to "docker push" into the docker repo OpenShift will start up below. With opensource code is far easier to deploy via your own free account on docker hub:
 
 ```
-# in the following commands you need to use your docker user name
+# in the following commands you need to change "username" to be your docker hub user name
 docker login
 docker tag cu-final-mssql username/cu-final-mssql:latest
 docker push username/cu-final-mssql:latest
