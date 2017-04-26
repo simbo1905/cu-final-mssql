@@ -30,4 +30,4 @@ spec:
     -
       name: "pvol"
       persistentVolumeClaim:
-        claimName: "claim1"
+        claimName: "claim2"
