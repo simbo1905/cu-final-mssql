@@ -8,7 +8,7 @@ The code isn't aiming for production quality. By way of example the logging of S
 
 ## Run It with Docker on Mac OS
 
-_Personal Opinion:_ I recommend using  "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
+_Personal Opinion:_ I recommend using "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
 
 SQLServer wont get out of bed for less than 3.5G RAM so you need to up your memory settings on Docker for Mac and restart it. Then start up SQLServer on under docker with:
 
@@ -73,9 +73,9 @@ docker push username/cu-final-mssql:latest
 
 _Personal Opinion:_ There are multiple ways to run Openshift PaaS on Mac and I found the old ways a real headache. The latest Openshift Origin "oc cluster up" approach is a breath of fresh air. I really wanted to use the enterprise distro but that doesn't yet support this developer friendly approach. 
 
-At the time of writing Openshift thought that the latest stable Docker for Mac was using an unstable version number so refused to run. I had to downgrade to the previous stable Docker for Mac.
+At the time of writing Openshift parsed the latest stable Docker for Mac version number as being an unstable version number so refused to run. I had to downgrade to the previous stable Docker for Mac.
 
-First create the machine if it is the first time. Note the user of the stable Origin 1.5.0 "oc" binary which has the cluster up feature and the use of the "alpha.3" server version to avoid a regression which slipped in after it:
+First create the machine if it is the first time. Note the use of the stable Origin 1.5.0 "oc" binary which has the cluster up feature and the use of the "v1.5.0-alpha.3" version of the cluster being brought up: 
 
 ```
 # CREATE MACHINE here change the host data folder to your own folder
@@ -95,9 +95,11 @@ Now run the machine:
                 --metrics=false
 ```
 
+_Personal Opinion:_ While that all sounded a bit buggy I think the tools are in general good and stable. It is just that I used a very convenient bleeding edge feature on Mac rather than Linux so I found some wet paint. I blaim the next issue below on having to run the alpha versions. 
+
 If you now run ```docker ps``` you should now see a load of Openshift services running in their own containers. 
 
-In the following when I created a project on the command-line I got access denied trying to access it on the web console. If you run into that issue run `oc delete project cu-final-mssql` and recreated it via the web console.
+In the following when I created a project on the command-line I got access denied trying to access it on the web console. If you run into that issue run `oc delete project cu-final-mssql` and recreated it via the web console. 
 
 Deploy SQLSerer into Openshift (OMG!):
 
@@ -147,9 +149,9 @@ Then deploy the app via the web console:
 3. Browse to the mssql *service* and note down its IP address on its details page.
 4. Click Add to Project at the top
 5. Deploy image
-6. Select Image Name and past in your image path on dockerhub e.g. `username/cu-final-mssql:latest`
+6. Select Image Name and paste in your image path on dockerhub e.g. `username/cu-final-mssql:latest`
 7. Click on the search icon and wait for it to load the details. Ignore the warning about root user.
-8. Set an Environment Variable "ConnectionStrings__DefaultConnection" with the following value edited with to contain the service IP address `Server=172.30.219.45;Database=mydatabase;User Id=sa;Password=<YourStrong!Passw0rd>`
+8. Set an Environment Variable "ConnectionStrings__DefaultConnection" with the following value edited to contain the database service IP address `Server=172.30.219.45;Database=mydatabase;User Id=sa;Password=<YourStrong!Passw0rd>`
 9. Click on Create
 10. Check that everything deployed correctly. On the pod log it should say its listening on port 5000.
 11. On the Overview click on "Create Route" for the CU FINAL MSSQL service. Just hit Create.
