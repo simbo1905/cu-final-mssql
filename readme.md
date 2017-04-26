@@ -6,7 +6,9 @@ able to configure the connection settings via Environment Variables. It also
 provides some yaml file to deploy the demo app and SQLServer Linux on Docker
 to run on Mac OS (Mac OSX).
 
-## Run It With Docker on Mac OSX
+## Run It with Docker on Mac OS
+
+_Personal Opinion:_ I recommend using with "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the ocker native tooling seems to be something that Microsoft are getting behind.
 
 First start up SQLServer on under docker with:
 
@@ -15,9 +17,10 @@ First start up SQLServer on under docker with:
 
 Now we need to run the `SqlServer.sql` script into the database to create the tables:
 
-```# replace 945a6f668680 with your container uid found using "docker ps"
-docker cp SqlServer.sql 945a6f668680:/var/opt/mssql/data/SqlServer.sql
-docker run -it 945a6f668680 bash
+```# replace d961b29f54df with your container uid found using "docker ps"
+docker cp SqlServer.sql d961b29f54df:/var/opt/mssql/data/SqlServer.sql
+# login
+docker exec -it d961b29f54df bash
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -i /var/opt/mssql/data/SqlServer.sql
 # now login and query a table to check it is there. use exit twice to quite out to the host
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>'
@@ -25,11 +28,9 @@ docker run -it 945a6f668680 bash
 2> go
 ```
 
-You can also use Visual Studio Code to run SQL against the serer using the
-free cross platform IDE with the instructions at https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-develop-use-vscode
+You can also use Visual Studio Code the free cross platform IDE to execute SQL against MS SQLServer following the instructions at https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-develop-use-vscode
 
-Now set an connection string Environment Variable which points to that database and
-build and run the code against it:
+Now set an connection string Environment Variable which points to that database and build and run the code against it:
 
 ```
 ConnectionStrings__DefaultConnection="Server=10.229.45.241;Database=mydatabase;User Id=sa;Password=<YourStrong"'!'"Passw0rd>"
@@ -38,7 +39,7 @@ dotnet restore
 dotnet run
 ```
 
-It should come up on http://localhost:5000 and allow you to query or create students etc. 
+It should come up on http://localhost:5000 and allow you to query or create students etc.
 
 ## Download it
 
