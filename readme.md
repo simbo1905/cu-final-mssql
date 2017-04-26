@@ -8,7 +8,7 @@ The code isn't aiming for production quality. By way of example the logging of S
 
 ## Run It with Docker on Mac OS
 
-_Personal Opinion:_ I recommend using with "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the ocker native tooling seems to be something that Microsoft are getting behind.
+_Personal Opinion:_ I recommend using with "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
 
 SQLServer wont get out of bed for less than 3.5G RAM so you need to up your memory settings on Docker for Mac and restart it. Then start up SQLServer on under docker with:
 
