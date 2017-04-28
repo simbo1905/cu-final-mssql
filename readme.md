@@ -54,6 +54,8 @@ It should come up on http://localhost:5000 and allow you to query or create stud
 
 ## Run SQLServer on Linux and the demo app with Openshift Origin PaaS on Mac OS
 
+just be clear these steps work on my Mac Book Pro running an official preview edition of the next major release of SQLServer on a Microsoft supplied docker contrainer.
+
 First build the production release container which doesn't need a writable file system:
 
 ```
