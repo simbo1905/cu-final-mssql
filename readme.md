@@ -95,13 +95,13 @@ Now run the machine:
                 --metrics=false
 ```
 
-_Personal Opinion:_ While that all sounded a bit buggy I think the tools are in general good and stable. It is just that I used a very convenient bleeding edge feature on Mac rather than Linux so I found some wet paint. I blaim the next issue below on having to run the alpha versions. 
+_Personal Opinion:_ While that all sounded a bit buggy I think the tools are in general good and stable. It is just that I used a very convenient bleeding edge feature on Mac rather than Linux so I found some wet paint. I blame the next issue below on having to run the alpha versions. 
 
 If you now run ```docker ps``` you should now see a load of Openshift services running in their own containers. 
 
 In the following when I created a project on the command-line I got access denied trying to access it on the web console. If you run into that issue run `oc delete project cu-final-mssql` and recreated it via the web console. 
 
-Deploy SQLSerer into Openshift (OMG!):
+Deploy SQLServer into Openshift (OMG!):
 
 ```
 # login to Openshift
