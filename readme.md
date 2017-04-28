@@ -95,7 +95,7 @@ Now run the machine:
                 --metrics=false
 ```
 
-_Personal Opinion:_ While that all sounded a bit buggy I think the tools are in general good and stable. It is just that I used a very convenient bleeding edge feature on Mac rather than Linux so I found some wet paint. The Openshift devs where helpful in offering work arounds to folks running into these issues on Mac and where scheduling thr fixes. I blame the next issue below on having to run the alpha versions. 
+_Personal Opinion:_ While that all sounded a bit buggy I think the tools are in general good and stable. It is just that I used a very convenient bleeding edge feature on Mac rather than Linux so I found some wet paint. The Openshift devs where helpful in offering work arounds to folks running into these issues on Mac and were scheduling the fixes as I went press. I blame the next issue below on having to run the alpha versions. 
 
 If you now run ```docker ps``` you should now see a load of Openshift services running in their own containers. 
 
