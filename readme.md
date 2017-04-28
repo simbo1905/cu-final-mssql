@@ -52,7 +52,7 @@ dotnet run
 
 It should come up on http://localhost:5000 and allow you to query or create students etc.
 
-## Run It on Openshift Origin PaaS on Mac OS
+## Run SQLServer on Linux and the demo app with Openshift Origin PaaS on Mac OS
 
 First build the production release container which doesn't need a writable file system:
 
