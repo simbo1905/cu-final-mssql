@@ -6,6 +6,8 @@ able to configure the connection settings via Environment Variables. The instruc
 
 The code isn't aiming for production quality as its a quick alpha spike. By way of example the logging of SQL strings happens in production builds. In a real application you would use the DotNet core convensions of checking a standard Env Var to enable or disable it. Still those modifications are easy to make so why not have a go and send me a PR. 
 
+Just be clear these steps work on my Mac Book Pro running an official preview edition of the next major release of SQLServer which runs on Linux using a Microsoft supplied docker image. 
+
 ## Run It with Docker on Mac OS
 
 _Personal Opinion:_ I recommend using "Docker for Mac" as there is less messing around with network issues than using a brew install of Docker Engine. Visual Studio 2017 now has good support for "Docker for Windows" so the Docker native tooling seems to be something that Microsoft are getting behind.
@@ -53,8 +55,6 @@ dotnet run
 It should come up on http://localhost:5000 and allow you to query or create students etc.
 
 ## Run SQLServer on Linux and the demo app with Openshift Origin PaaS on Mac OS
-
-just be clear these steps work on my Mac Book Pro running an official preview edition of the next major release of SQLServer on a Microsoft supplied docker contrainer.
 
 First build the production release container which doesn't need a writable file system:
 
