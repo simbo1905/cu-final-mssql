@@ -1,5 +1,7 @@
 
-## Run on Redhat Container Development Kit (on MacOS)
+# Run on Redhat Container Development Kit (on MacOS)
+
+## Install the CDK and setup VM
 
 Before you can download and use the CDK, you need a no-cost Red Hat Enterprise
 Linux Developer Suite subscription. Information can be found:
@@ -42,8 +44,9 @@ minishift setup-cdk --default-vm-driver virtualbox
 
 If it fails (I got a network timeout first time) use `minishift delete` and retry.
 
-Once it has successfully completed you can tart the environment with
-`minishift start` which will setup your terminal to interact with openshift and
+## Start Minishift
+
+Start the environment with `minishift start` which will setup your terminal to interact with openshift and
 output you login details to the cluster:
 
 ```
@@ -60,16 +63,22 @@ output you login details to the cluster:
        oc login -u system:admin
 ```
 
-Now build the production release container which doesn't need a writable file system:
+## Checkout and build the code
+
+Here we build the production release container which doesn't need a writable file system:
 
 ```
+# checkout the code
+git clone https://github.com/simbo1905/cu-final-mssql.git
 # build the production version
 dotnet restore
 dotnet publish -c Release -o out
 docker build -t cu-final-mssql .
 ```
 
-If you have private containers you are going to have to "docker push" into the docker repo OpenShift will start up below. With opensource code is far easier to deploy via your own free account on docker hub:
+If you have private containers you are going to have to "docker push" into the
+docker repo OpenShift will start up below. With opensource code is far easier to
+deploy via your own free account on docker hub:
 
 ```
 # in the following commands you need to change "username" to be your docker hub user name
@@ -122,13 +131,13 @@ find / -name sqlcmd
 Then deploy the app:
 
 ```
-# create the "frontend" deployment:
+# create the "frontend" deployment. Note you need to edit the yaml file to name your own docker hub login name:
 cat frontend_deployment.yaml | oc create -f -
 # create the "frontend" service:
 cat mssql_service.yaml | oc create -f -
 ```
 
-Now login to the openshift console and export a route:
+Now login to the openshift console: 
 
 1. Log in to the web console the url is shown at the bottom of the `minishift start` output
 1. Open the project `cu-final-mssql`
