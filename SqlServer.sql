@@ -13,6 +13,7 @@ CREATE TABLE [dbo].[Person] (
     CONSTRAINT [PK_Instructor] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
+GO
 
 CREATE TABLE [dbo].[Department] (
     [DepartmentID] INT           IDENTITY (1, 1) NOT NULL,
@@ -25,6 +26,7 @@ CREATE TABLE [dbo].[Department] (
     CONSTRAINT [FK_Department_Instructor_InstructorID] FOREIGN KEY ([InstructorID]) REFERENCES [dbo].[Person] ([ID])
 );
 
+GO
 
 CREATE TABLE [dbo].[Course] (
     [CourseID]     INT           NOT NULL,
@@ -34,9 +36,8 @@ CREATE TABLE [dbo].[Course] (
     CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED ([CourseID] ASC),
     CONSTRAINT [FK_Course_Department_DepartmentID] FOREIGN KEY ([DepartmentID]) REFERENCES [dbo].[Department] ([DepartmentID]) ON DELETE CASCADE
 );
-
-
 GO
+
 CREATE NONCLUSTERED INDEX [IX_Course_DepartmentID]
     ON [dbo].[Course]([DepartmentID] ASC);
 
@@ -50,6 +51,7 @@ CREATE TABLE [dbo].[CourseAssignment] (
 
 
 GO
+
 CREATE NONCLUSTERED INDEX [IX_CourseAssignment_InstructorID]
     ON [dbo].[CourseAssignment]([InstructorID] ASC);
 
@@ -66,6 +68,8 @@ CREATE TABLE [dbo].[Enrollment] (
     CONSTRAINT [FK_Enrollment_Course_CourseID] FOREIGN KEY ([CourseID]) REFERENCES [dbo].[Course] ([CourseID]) ON DELETE CASCADE,
     CONSTRAINT [FK_Enrollment_Person_StudentID] FOREIGN KEY ([StudentID]) REFERENCES [dbo].[Person] ([ID]) ON DELETE CASCADE
 );
+GO
+
 
 
 GO
@@ -84,3 +88,5 @@ CREATE TABLE [dbo].[OfficeAssignment] (
     CONSTRAINT [PK_OfficeAssignment] PRIMARY KEY CLUSTERED ([InstructorID] ASC),
     CONSTRAINT [FK_OfficeAssignment_Instructor_InstructorID] FOREIGN KEY ([InstructorID]) REFERENCES [dbo].[Person] ([ID]) ON DELETE CASCADE
 );
+
+GO
