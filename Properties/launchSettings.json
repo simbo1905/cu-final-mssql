@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -12,6 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "MSSQL_PASSWORD": "somepassword",
+        "DATABASE_SERVICE_HOST": "172.30.87.229",
+        "MSSQL_USER": "sa",
+        "MSSQL_DATABASE": "mydatabase",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

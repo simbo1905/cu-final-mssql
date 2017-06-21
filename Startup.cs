@@ -30,8 +30,7 @@ namespace ContosoUniversity
                 .AddDebug();
             _logger = logger;
 
-
-            foreach(var envVar in Configuration.GetChildren())
+            foreach (var envVar in Configuration.GetChildren())
             {
                 _logger.LogInformation(LoggingEvents.CONFIGURATION, $"{envVar.Key}: {envVar.Value}");
             }
@@ -42,9 +41,19 @@ namespace ContosoUniversity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var dbHost = $"{Configuration["DATABASE_SERVICE_HOST"]}";
+            _logger.LogInformation(LoggingEvents.CONFIGURATION, dbHost);
+            var dbDatabase = $"{Configuration["MSSQL_DATABASE"]}";
+            _logger.LogInformation(LoggingEvents.CONFIGURATION, dbDatabase);
+            var dbUser = $"{Configuration["MSSQL_USER"]}";
+            _logger.LogInformation(LoggingEvents.CONFIGURATION, dbUser);
+            var dbPassword = $"{Configuration["MSSQL_PASSWORD"]}";
+            _logger.LogInformation(LoggingEvents.CONFIGURATION, dbPassword);
 
-            _logger.LogInformation(LoggingEvents.CONFIGURATION, "DefaultConnection={connectionString}", connectionString);
+            //var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = $"Server={dbHost};Database={dbDatabase};User Id={dbUser};Password={dbPassword}";
+
+            _logger.LogInformation(LoggingEvents.CONFIGURATION, "connectionString={connectionString}", connectionString);
 
             // Add framework services.
             services.AddDbContext<SchoolContext>(options =>
