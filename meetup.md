@@ -36,7 +36,8 @@ export MINISHIFT_PASSWORD=xxx
 
 Then run the setup command:
 
-```minishift setup-cdk --default-vm-driver virtualbox
+```
+minishift setup-cdk --default-vm-driver virtualbox
 ```
 
 If it fails (I got a network timeout first time) use `minishift delete` and retry.
