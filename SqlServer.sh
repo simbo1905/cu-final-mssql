@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "DATABASE_SERVICE_HOST=${DATABASE_SERVICE_HOST}"
+echo "MSSQL_DATABASE=${MSSQL_DATABASE}"
+echo "MSSQL_USER=${MSSQL_USER}"
+echo "MSSQL_PASSWORD=${MSSQL_PASSWORD}"
+echo SqlServer.sql
+cat SqlServer.sql
