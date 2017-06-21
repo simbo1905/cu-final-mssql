@@ -57,7 +57,7 @@ dotnet run
 
 It should come up on http://localhost:5000 and allow you to query or create students etc.
 
-## ## Run with RedHat Container Platform (Openshift v3)PaaS on Mac OS
+## Run with RedHat Container Platform (Openshift v3) PaaS on Mac OS
 
 see [meetup.md](meetup.md)
 

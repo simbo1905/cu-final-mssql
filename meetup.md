@@ -1,7 +1,7 @@
 
 # Run on Redhat Container Development Kit (on MacOS)
 
-## Checkout and build the code (Optional)
+## Checkout and build the code (Optional requires `dotnet` installation)
 
 Here we build the production release container which doesn't need a writable file system:
 
@@ -106,16 +106,11 @@ oc new-project cu-final-mssql
 oc new-app application-template.json
 ```
 
-Login to the web console and click on the logs tab of the POD check it is healthy.
-
-You now need to run the `SQLServer.sql` against the database to create the tables.
-Rather than creating a new image with the sql file in it with a mechanism
-to start it I cheated. I logged into the openshift web console, selected the pod,
-click on the Terminal tab, and open the sqlcmd tool and pasted in the SQL:
+I didn't have time to alter the application to have it create the database tables.
+So login into the openshift web console (url shown in the outpout of `minishift start`),
+selected the `Application > Pods` and open the database pod, then click on the Terminal tab:
 
 ```
-# Log in to the web console the url is shown at the bottom of the `oc cluster up` output
-# open the Terminal tab of the pod to get into the running container
 # download the sql
 wget https://raw.githubusercontent.com/simbo1905/cu-final-mssql/master/SqlServer.sql
 # run it into the database
