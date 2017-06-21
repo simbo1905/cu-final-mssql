@@ -1,7 +1,31 @@
 
 # Run on Redhat Container Development Kit (on MacOS)
 
-## Install the CDK and setup VM
+## Checkout and build the code (Optional)
+
+Here we build the production release container which doesn't need a writable file system:
+
+```
+# checkout the code
+git clone https://github.com/simbo1905/cu-final-mssql.git
+# build the production version
+dotnet restore
+dotnet publish -c Release -o out
+docker build -t cu-final-mssql .
+```
+
+If you have private containers you are going to have to "docker push" into the
+docker repo OpenShift will start up below. With opensource code is far easier to
+deploy via your own free account on docker hub:
+
+```
+# in the following commands you need to change "username" to be your docker hub user name
+docker login
+docker tag cu-final-mssql username/cu-final-mssql:latest
+docker push username/cu-final-mssql:latest
+```
+
+## Install the CDK and setup VM (Optional if already installed)
 
 Before you can download and use the CDK, you need a no-cost Red Hat Enterprise
 Linux Developer Suite subscription. Information can be found:
@@ -63,28 +87,12 @@ output you login details to the cluster:
        oc login -u system:admin
 ```
 
-## Checkout and build the code
+## Deploy the application and database
 
-Here we build the production release container which doesn't need a writable file system:
+If you haven't yet obtained the code do so with:
 
 ```
-# checkout the code
 git clone https://github.com/simbo1905/cu-final-mssql.git
-# build the production version
-dotnet restore
-dotnet publish -c Release -o out
-docker build -t cu-final-mssql .
-```
-
-If you have private containers you are going to have to "docker push" into the
-docker repo OpenShift will start up below. With opensource code is far easier to
-deploy via your own free account on docker hub:
-
-```
-# in the following commands you need to change "username" to be your docker hub user name
-docker login
-docker tag cu-final-mssql username/cu-final-mssql:latest
-docker push username/cu-final-mssql:latest
 ```
 
 Now create a new project and deploy the database:
@@ -94,17 +102,8 @@ Now create a new project and deploy the database:
 oc login -u system:admin
 # see warning above about perhaps not being able to login to this project
 oc new-project cu-final-mssql
-# in case this your second attempt after having to create the project via the web console
-oc project cu-final-mssql
-# check you have the volume I used in the pvc.yaml
-oc get pv | fgrep pv0002
-# If you didn't find it you are going to have to author some yaml to create it
-# Create the persistent volume claim:
-cat pvc.yaml | oc create -f -
-# create the "mssql" SQLServer POD:
-cat mssql_pod.yaml | oc create -f -
-# create the "mssql" SQLServer service:
-cat mssql_service.yaml | oc create -f -
+# create the application
+oc new-app application-template.json
 ```
 
 Login to the web console and click on the logs tab of the POD check it is healthy.
@@ -117,34 +116,18 @@ click on the Terminal tab, and open the sqlcmd tool and pasted in the SQL:
 ```
 # Log in to the web console the url is shown at the bottom of the `oc cluster up` output
 # open the Terminal tab of the pod to get into the running container
-# check the sqlcmd tool is there
-find / -name sqlcmd
-# login to the local SQLServer as SA
-/opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P '<YourStrong!Passw0rd>'
-# now paste the sql from SQLServer.sql. the terminal will badly format it. hit enter.
-...
-# check that the last table got created by querying form it:
-1> select * from [dbo].[OfficeAssignment];                                                                                                                           
-2> G0
+# download the sql
+wget https://raw.githubusercontent.com/simbo1905/cu-final-mssql/master/SqlServer.sql
+# run it into the database
+/opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P $SA_PASSWORD -i SqlServer.sql
 ```
 
-Then deploy the app:
-
-```
-# create the "frontend" deployment. Note you need to edit the yaml file to name your own docker hub login name:
-cat frontend_deployment.yaml | oc create -f -
-# create the "frontend" service:
-cat mssql_service.yaml | oc create -f -
-```
-
-Now login to the openshift console:
+Now login to the openshift console to set a nip.io route to browse the app:
 
 1. Log in to the web console the url is shown at the bottom of the `minishift start` output
-1. Open the project `cu-final-mssql`
-1. Browse to the `mssql` *service* and note down its IP address on its details page.
-1. Open the `frontend` *deployment* config and edited the Environment Variable "ConnectionStrings__DefaultConnection" so set the IP of the mssql service.
-1. Open the `frontend` *service* and click on action and create a Route
+1. Open `Applications > Route` then open the frontend route and use the Action button to delete it
+1. Open `Applications > Services` then open the frontend service and use the Action to create a route using the defaults
 1. The overview should show a http link to an xip.io url which opens a browser pointing at your apps IP address.
-1. Navigate to the Student tab and click Create New to confirm you can write to the dataase.
+1. Navigate to the Student tab and click Create New to confirm you can write to the database.
 
 Enjoy!
