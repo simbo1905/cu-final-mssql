@@ -137,12 +137,12 @@ cat frontend_deployment.yaml | oc create -f -
 cat mssql_service.yaml | oc create -f -
 ```
 
-Now login to the openshift console: 
+Now login to the openshift console:
 
 1. Log in to the web console the url is shown at the bottom of the `minishift start` output
 1. Open the project `cu-final-mssql`
 1. Browse to the `mssql` *service* and note down its IP address on its details page.
-1. Open the `frontend` *deployment* config and edited teh Environment Variable "ConnectionStrings__DefaultConnection" so set the IP of the mssql service.
+1. Open the `frontend` *deployment* config and edited the Environment Variable "ConnectionStrings__DefaultConnection" so set the IP of the mssql service.
 1. Open the `frontend` *service* and click on action and create a Route
 1. The overview should show a http link to an xip.io url which opens a browser pointing at your apps IP address.
 1. Navigate to the Student tab and click Create New to confirm you can write to the dataase.
