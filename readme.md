@@ -46,11 +46,17 @@ InstructorID Location
 
 You can also use Visual Studio Code the free cross platform IDE to execute SQL against MS SQLServer following the instructions at https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-develop-use-vscode
 
-Now set an connection string Environment Variable which points to that database and build and run the code against it:
+Now set the Environment Variables which points to that database and build and run the code against it:
 
 ```
-ConnectionStrings__DefaultConnection="Server=10.229.45.241;Database=mydatabase;User Id=sa;Password=<YourStrong"'!'"Passw0rd>"
-export ConnectionStrings__DefaultConnection
+DATABASE_SERVICE_HOST=127.0.0.1
+export DATABASE_SERVICE_HOST
+MSSQL_DATABASE=mydatabase
+export MSSQL_DATABASE
+MSSQL_USER=sa
+export MSSQL_USER
+MSSQL_PASSWORD=""<YourStrong"'!'"Passw0rd>"
+export MSSQL_PASSWORD
 dotnet restore
 dotnet run
 ```
@@ -59,6 +65,6 @@ It should come up on http://localhost:5000 and allow you to query or create stud
 
 ## Run with RedHat Container Platform (Openshift v3) PaaS on Mac OS
 
-see [meetup.md](meetup.md)
+See [meetup.md](meetup.md)
 
 Enjoy!
