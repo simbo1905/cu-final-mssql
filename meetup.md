@@ -125,4 +125,6 @@ Now login to the openshift console to set a nip.io route to browse the app:
 1. The overview should show a http link to an xip.io url which opens a browser pointing at your apps IP address.
 1. Navigate to the Student tab and click Create New to confirm you can write to the database.
 
+See also this blog about remote debugging C# inside of Openshift: http://redhat.slides.com/tatanaka/getting-started-with-asp-net-core-on-openshift?token=UUDdJFUs#/
+
 Enjoy!
