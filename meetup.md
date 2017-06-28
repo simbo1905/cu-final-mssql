@@ -29,9 +29,9 @@ docker push username/cu-final-mssql:latest
 
 The CDK is a single binary which setups OpenShift within a Virtual Machine.
 The default virtual machine runtime is Virtual Box and the CDK installer will
-install the correct version if you don't already hav it.  
+install the correct version if you don't already have it.  
 
-Before you can download and use the CDK, you need a *no-cost* Red Hat Enterprise
+Before you can download and use the CDK, you need a _no_cost_ Red Hat Enterprise
 Linux Developer Suite subscription. This is so that it can register a RHEL7 virtual machine
 which is what the commercially supported version of OpenShift is supported on.
 
@@ -45,7 +45,8 @@ Information can be found:
 https://developers.redhat.com/products/cdk/overview/
 
 Before you run the commands to setup the VM you need to export your redhat developer
-account details. This is used to register the OS running in the VM which is RHEL7:
+account details. This is used to register the OS running in the VM which is RHEL7.
+To do this edit this little script to use your redhat login and then run it:
 
 ```
 #!/usr/bin/env bash
@@ -67,9 +68,10 @@ minishift start --vm-driver virtualbox
 
 If it fails (I got a network timeout first time) use `minishift delete` and retry.
 
-If you get stuck try these instructions
-https://www.youtube.com/watch?v=UxwBB0_-9VM
-https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.0/html/installation_guide/
+If you get stuck try these instructions:
+
+- https://www.youtube.com/watch?v=UxwBB0_-9VM
+- https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.0/html/installation_guide/
 
 ## Start Minishift ("Mini OpenShift")
 
