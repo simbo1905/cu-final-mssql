@@ -21,7 +21,8 @@ SQLServer wont get out of bed for less than 3.5G RAM so you need to up your memo
 docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 -d microsoft/mssql-server-linux
 ```
 
-Now we need to create the database and tables with `SqlServer.sql`:
+In the real world you would have the app generate the tables however we need to
+do this manually: 
 
 ```
 # replace d961b29f54df with your container uid shown using "docker ps"
