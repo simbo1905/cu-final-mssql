@@ -16,7 +16,7 @@ docker build -t cu-final-mssql .
 
 If you have private containers you are going to have to "docker push" into the
 docker repo OpenShift will start up below. With opensource code is far easier to
-deploy via your own free account on docker hub:
+push to your own free account on docker hub:
 
 ```
 # in the following commands you need to change "username" to be your docker hub user name
@@ -24,6 +24,9 @@ docker login
 docker tag cu-final-mssql username/cu-final-mssql:latest
 docker push username/cu-final-mssql:latest
 ```
+
+Think of that as pushing to your public images repo on the biggest provider which
+OpenShift will automatically search.
 
 ## Install the Redhat OpenShift Container Developer Kit (CDK)
 
@@ -93,6 +96,11 @@ output you login details to the cluster:
 ```
 
 ## Deploy the application and database
+
+Please note the `application-template.json` template pulls the image from my docker hub
+account. If you are wanting to run an image you built and pushed to your docker hub
+account you probably want to try mine first then edit the template to point to
+your docker hub account. 
 
 If you haven't yet obtained the code do so with:
 
