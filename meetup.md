@@ -1,7 +1,7 @@
 
 # Run on Redhat Container Development Kit (on MacOS)
 
-## Checkout and build the code (Optional requires `dotnet` installation)
+## Checkout and build the code using .Net Core (aka `dotnet`)
 
 Here we build the production release container which doesn't need a writable file system:
 
@@ -25,50 +25,53 @@ docker tag cu-final-mssql username/cu-final-mssql:latest
 docker push username/cu-final-mssql:latest
 ```
 
-## Install the CDK and setup VM (Optional if already installed)
+## Install the Redhat OpenShift Container Developer Kit (CDK)
 
-Before you can download and use the CDK, you need a no-cost Red Hat Enterprise
-Linux Developer Suite subscription. Information can be found:
+The CDK is a single binary which setups OpenShift within a Virtual Machine.
+The default virtual machine runtime is Virtual Box and the CDK installer will
+install the correct version if you don't already hav it.  
 
-https://developers.redhat.com/products/cdk/overview/
+Before you can download and use the CDK, you need a *no-cost* Red Hat Enterprise
+Linux Developer Suite subscription. This is so that it can register a RHEL7 virtual machine
+which is what the commercially supported version of OpenShift is supported on.
 
-A brief video to show you installing the CDK can be found on YouTube here:
-
-Setting up Red Hat Development Suite
-
-https://www.youtube.com/watch?v=UxwBB0_-9VM
-
-The written instructions can be found here:
-
-Red Hat CDK Installation Guide
-
-https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.0/html/installation_guide/
-
-If you do not want to install everything provided in the image, you can select
-the CDK during the install. It also defaults to using  Virtual Box to run the
-VM containing the solution which the installer will install for you.
-
-The CDK installs a single binary `minishift` which is typically installed at
+You do not want to install everything provided in the installation binary. You can select
+only the CDK during the install. This is a single `minishift` which is typically installed at
 `/Applications/DevelopmentSuite/cdk/bin/minishift`. You may need to `chmod +x /Applications/DevelopmentSuite/cdk/bin/minishift`
 and add it to your path.
+
+Information can be found:
+
+https://developers.redhat.com/products/cdk/overview/
 
 Before you run the commands to setup the VM you need to export your redhat developer
 account details. This is used to register the OS running in the VM which is RHEL7:
 
 ```
-export MINISHIFT_USERNAME=x@y.com
-export MINISHIFT_PASSWORD=xxx
-```
+#!/usr/bin/env bash
+# Copied from https://github.com/jhcook/game_engine/blob/master/openshift/minishift_boot.sh
+# This sets the appropriate environment variables, creates a CDK with access
+# to appropriate insecure registries and allows transparent access.
+#
+# Author: Justin Cook <jhcook@secnix.com>
 
-Then run the setup command:
+# Check if we have an environment that will work
 
-```
-minishift setup-cdk --default-vm-driver virtualbox
+export MINISHIFT_USERNAME="jhcook@secnix.com"
+echo "Please enter your RHDS Password: "
+read -sr MINISHIFT_PASSWORD_INPUT
+export MINISHIFT_PASSWORD=$MINISHIFT_PASSWORD_INPUT
+
+minishift start --vm-driver virtualbox
 ```
 
 If it fails (I got a network timeout first time) use `minishift delete` and retry.
 
-## Start Minishift
+If you get stuck try these instructions
+https://www.youtube.com/watch?v=UxwBB0_-9VM
+https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.0/html/installation_guide/
+
+## Start Minishift ("Mini OpenShift")
 
 Start the environment with `minishift start` which will setup your terminal to interact with openshift and
 output you login details to the cluster:
