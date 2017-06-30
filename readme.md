@@ -3,9 +3,10 @@
 "Contoso University" demonstrates how to use Entity Framework Core in an
 ASP.NET Core MVC web application. This repository makes minor patches to be
 able to configure the connection settings via Environment Variables.
-The instructions below show how to run it all in OpenShift Origin PaaS on Mac OS.
 
-The original material is at https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final
+There are instructions at [meetup.md](meetup.md) showing how to run it in OpenShift PaaS on Mac OS.
+
+The original demo webapp material is at https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final
 
 The code isn't aiming for production quality as its a quick alpha spike. By way of example the logging of SQL strings happens in production builds. In a real application you would use the DotNet core convensions of checking a standard Env Var to enable or disable it. Still those modifications are easy to make so why not have a go and send me a PR.
 
