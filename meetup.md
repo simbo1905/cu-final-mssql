@@ -49,7 +49,7 @@ https://developers.redhat.com/products/cdk/overview/
 
 Before you run the commands to setup the VM you need to export your redhat developer
 account details. This is used to register the OS running in the VM which is RHEL7.
-To do this edit this little script to use your redhat login and then run it:
+To do this edit this little script to use your redhat login and then run it uncommenting out the "setup-cdk" command do to the initial setup. After that you only need to run the "start" command. 
 
 ```
 #!/usr/bin/env bash
@@ -66,6 +66,7 @@ echo "Please enter your RHDS Password: "
 read -sr MINISHIFT_PASSWORD_INPUT
 export MINISHIFT_PASSWORD=$MINISHIFT_PASSWORD_INPUT
 
+#minishift setup-cdk --default-vm-driver virtualbox
 minishift start --vm-driver virtualbox
 ```
 
