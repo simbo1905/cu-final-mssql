@@ -3,9 +3,10 @@
 "Contoso University" demonstrates how to use Entity Framework Core in an
 ASP.NET Core MVC web application. This repository makes minor patches to be
 able to configure the connection settings via Environment Variables.
-The instructions below show how to run it all in OpenShift Origin PaaS on Mac OS.
 
-The original material is at https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final
+There are instructions at [meetup.md](meetup.md) showing how to run it in OpenShift PaaS on Mac OS.
+
+The original demo webapp material is at https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final
 
 The code isn't aiming for production quality as its a quick alpha spike. By way of example the logging of SQL strings happens in production builds. In a real application you would use the DotNet core convensions of checking a standard Env Var to enable or disable it. Still those modifications are easy to make so why not have a go and send me a PR.
 
@@ -21,7 +22,8 @@ SQLServer wont get out of bed for less than 3.5G RAM so you need to up your memo
 docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 -d microsoft/mssql-server-linux
 ```
 
-Now we need to create the database and tables with `SqlServer.sql`:
+In the real world you would have the app generate the tables however we need to
+do this manually: 
 
 ```
 # replace d961b29f54df with your container uid shown using "docker ps"
@@ -46,11 +48,17 @@ InstructorID Location
 
 You can also use Visual Studio Code the free cross platform IDE to execute SQL against MS SQLServer following the instructions at https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-develop-use-vscode
 
-Now set an connection string Environment Variable which points to that database and build and run the code against it:
+Now set the Environment Variables which points to that database and build and run the code against it:
 
 ```
-ConnectionStrings__DefaultConnection="Server=10.229.45.241;Database=mydatabase;User Id=sa;Password=<YourStrong"'!'"Passw0rd>"
-export ConnectionStrings__DefaultConnection
+DATABASE_SERVICE_HOST=127.0.0.1
+export DATABASE_SERVICE_HOST
+MSSQL_DATABASE=mydatabase
+export MSSQL_DATABASE
+MSSQL_USER=sa
+export MSSQL_USER
+MSSQL_PASSWORD=""<YourStrong"'!'"Passw0rd>"
+export MSSQL_PASSWORD
 dotnet restore
 dotnet run
 ```
@@ -59,6 +67,6 @@ It should come up on http://localhost:5000 and allow you to query or create stud
 
 ## Run with RedHat Container Platform (Openshift v3) PaaS on Mac OS
 
-see [meetup.md](meetup.md)
+See [meetup.md](meetup.md)
 
 Enjoy!
